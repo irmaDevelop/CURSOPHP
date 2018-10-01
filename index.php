@@ -75,7 +75,7 @@ $limitMonths = 200;
                   break;
                 }
                 
-                printJob($jobs[$idx]);
+                printElement($jobs[$idx]);
 
               } 
             ?>
@@ -83,6 +83,15 @@ $limitMonths = 200;
         </div>
         <div>
             <h3 class="border-bottom-gray">Projects</h3>
+              <ul>
+                <?php
+                 
+                  for($idx = 0;$idx < count($projects);$idx++){
+                    printElement($projects[$idx]);
+                  } 
+                ?>
+              </ul>
+
             <div class="project">
                 <h5>Project X</h5>
                 <div class="row">
