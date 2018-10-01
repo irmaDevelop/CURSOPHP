@@ -1,6 +1,7 @@
 <?php
 require_once 'app/Models/Job.php';
 require_once 'app/Models/Project.php';
+require_once 'app/Models/Printable.php';
 
 $job1 = new Job('PHP Developer','This is an awsome job!!!');
 //$job1 -> setTitle('PHP Developer');
@@ -51,7 +52,7 @@ function getDuration($months){
 }
 */
 
-  function printElement($element){
+  function printElement(Printable $element){
     //contenido de la funcion
   
     if ($element->visible == false){
@@ -60,7 +61,7 @@ function getDuration($months){
   
     echo '<li class="work-position">';
     echo '<h5>' . $element->getTitle() . '</h5>';
-    echo '<p>' . $element->description . '</p>';
+    echo '<p>' . $element->getDescription() . '</p>';
     //echo '<p>' . getDuration($job->months) . '</p>';
     echo '<p>' . $element->getDurationAsString() . '</p>';
     echo '<strong>Achievements:</strong>';

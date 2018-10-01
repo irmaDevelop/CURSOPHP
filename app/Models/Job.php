@@ -1,8 +1,9 @@
 <?php
 
-require 'BaseElement.php';
+require_once 'BaseElement.php';
+require_once 'Printable.php';
 
-class Job extends BaseElement{
+class Job extends BaseElement { 
 
     public function __construct($title, $description){
         //con la funcion en blanco los datos de Title y description no se muestran
@@ -25,4 +26,5 @@ class Job extends BaseElement{
         }
         return "Job duration: $salida";
     }
+
 }
