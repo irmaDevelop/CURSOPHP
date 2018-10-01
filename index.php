@@ -1,4 +1,5 @@
 <?php
+namespace App\Models;
 include_once('jobs.php');
 
 //$lastName = 'Benitez';

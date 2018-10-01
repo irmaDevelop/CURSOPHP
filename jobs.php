@@ -1,7 +1,12 @@
 <?php
+namespace App\Models;
 require_once 'app/Models/Job.php';
 require_once 'app/Models/Project.php';
 require_once 'app/Models/Printable.php';
+
+require 'app/lib1/Project.php';
+use App\Models\Job;
+use App\Models\Project;
 
 $job1 = new Job('PHP Developer','This is an awsome job!!!');
 //$job1 -> setTitle('PHP Developer');
