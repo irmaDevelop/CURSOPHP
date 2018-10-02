@@ -1,6 +1,6 @@
 <?php
 
-namespace lib1;
+namespace Lib1;
 
 class Project{
     

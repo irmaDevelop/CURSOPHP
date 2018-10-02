@@ -1,12 +1,15 @@
 <?php
-namespace App\Models;
-require_once 'app/Models/Job.php';
-require_once 'app/Models/Project.php';
-require_once 'app/Models/Printable.php';
 
-require 'app/lib1/Project.php';
-use App\Models\Job;
-use App\Models\Project;
+require_once 'vendor/autoload.php';
+//namespace App\Models;
+///////////require_once 'app/Models/Job.php';
+///////////require_once 'app/Models/Project.php';
+//////////require_once 'app/Models/Printable.php';
+
+/////////require 'app/lib1/Project.php';
+
+use App\Models\{Job, Project, Printable};
+//use App\Models\Project;
 
 $job1 = new Job('PHP Developer','This is an awsome job!!!');
 //$job1 -> setTitle('PHP Developer');
@@ -28,6 +31,7 @@ $job3 -> months = 32;
 
 $project1 = new Project('Project 1', 'Descripcion de Project 1');
 
+/////////$projectLib = new Lib1\Project();
 
 //
 
