@@ -1,45 +1,11 @@
 <?php
 
-require_once 'vendor/autoload.php';
-//namespace App\Models;
-///////////require_once 'app/Models/Job.php';
-///////////require_once 'app/Models/Project.php';
-//////////require_once 'app/Models/Printable.php';
+use App\Models\{Job, Project};
 
-/////////require 'app/lib1/Project.php';
+$jobs = Job::all(); // un metodo mas sencillo de acceso para utilizar eloquent, trae todo lo que encuentre
 
-use App\Models\{Job, Project, Printable};
-//use App\Models\Project;
 
-$job1 = new Job('PHP Developer','This is an awsome job!!!');
-//$job1 -> setTitle('PHP Developer');
-//$job1 -> description = 'This is an awsome job!!!';
-//$job1 -> visible = true;
-$job1 -> months = 16;
-
-$job2 = new Job('Python Dev','The teacher was pretty good');
-//$job2 -> setTitle('Python Dev');
-//$job2 -> description = 'The teacher was pretty good';
-//$job2 -> visible = true;
-$job2 -> months = 24;
-
-$job3 = new Job('','It was too dificult and hard, but I finaly finished it');
-//$job3 -> setTitle('');
-//$job3 -> description = 'It was too dificult and hard, but I finaly finished it';
-//$job3 -> visible = true;
-$job3 -> months = 32;
-
-$project1 = new Project('Project 1', 'Descripcion de Project 1');
-
-/////////$projectLib = new Lib1\Project();
-
-//
-
-$jobs = [
-    $job1,
-    $job2,
-    $job3
-  ];
+  $project1 = new Project('Project 1', 'Descripcion de Project 1');
 
   $projects = [
     $project1
@@ -61,17 +27,16 @@ function getDuration($months){
 }
 */
 
-  function printElement(Printable $element){
+  function printElement($element){
     //contenido de la funcion
   
-    if ($element->visible == false){
-      return;
-    }
+    //if ($element->visible == false){
+    //  return;
+    //}
   
     echo '<li class="work-position">';
-    echo '<h5>' . $element->getTitle() . '</h5>';
-    echo '<p>' . $element->getDescription() . '</p>';
-    //echo '<p>' . getDuration($job->months) . '</p>';
+    echo '<h5>' . $element->title . '</h5>';
+    echo '<p>' . $element->description . '</p>';
     echo '<p>' . $element->getDurationAsString() . '</p>';
     echo '<strong>Achievements:</strong>';
     echo '<ul>';
