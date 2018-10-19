@@ -5,11 +5,11 @@ use App\Models\{Job, Project};
 $jobs = Job::all(); // un metodo mas sencillo de acceso para utilizar eloquent, trae todo lo que encuentre
 
 
-  $project1 = new Project('Project 1', 'Descripcion de Project 1');
+  //$project1 = new Project('Project 1', 'Descripcion de Project 1');
 
-  $projects = [
-    $project1
-  ];
+  //$projects = [
+  //  $project1
+  //];
 
 /*  //Funcion reemplazada por metodo getDurationAsString de la clase Job
 function getDuration($months){
