@@ -43,16 +43,57 @@ $routerContainer = new RouterContainer();
 $map = $routerContainer->getMap(); //estructura que define que ruta lleva a que cosa
 //var_dump($map);
 //$map->get('blog.read', '/blog/{id}',
-$map->get('index', '/','../index.php');
-$map->get('addJobs', '/jobs/add','../addJobs.php');
+
+//$map->get('index', '/','../index.php');
+$map->get('index', '/',[
+    'controller' => 'App\Controllers\IndexController',
+    'action'     => 'indexAction'
+]);
+$map->get('addJobs', '/jobs/add',[
+    'controller' => 'App\Controllers\JobsController',
+    'action'     => 'getJobAddAction'
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request); //hacemos la prueba final
 
+function printElement($element){
+    //contenido de la funcion
+  
+    //if ($element->visible == false){
+    //  return;
+    //}
+  
+    echo '<li class="work-position">';
+    echo '<h5>' . $element->title . '</h5>';
+    echo '<p>' . $element->description . '</p>';
+    echo '<p>' . $element->getDurationAsString() . '</p>';
+    echo '<strong>Achievements:</strong>';
+    echo '<ul>';
+    echo '<li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '<li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '<li>Lorem ipsum dolor sit amet, 80% consectetuer adipiscing elit.</li>';
+    echo '</ul>';
+    echo '</li>'; 
+  }
+
+
 if(!$route){
-    echo 'Route not founded';
+    echo 'No route';
+}else{
+    $handlerData = $route->handler;
+    $controllerName = $handlerData['controller'];
+    $actionName = $handlerData['action'];
+    //queremos que controller sea una nueva instancia de IndexController
+    //php puede interpretar una cadena como si fuera el nombre de una clase
+
+    $controller  = new $controllerName;
+    //ahora a la clase controller le decimos ejecuta un metodo de esa clase
+    $controller->$actionName(); // ejecuta un metodo baso en la cadena
+    //require $route->handler;
+    //var_dump($route->handler);
 }
-    var_dump($route);
+    
 
 
 

@@ -2,8 +2,7 @@
 
 use App\Models\{Job, Project};
 
-// un metodo mas sencillo de acceso para utilizar eloquent, trae todo lo que encuentre
-$projects = Project::all();
+
 
   //$project1 = new Project('Project 1', 'Descripcion de Project 1');
 
