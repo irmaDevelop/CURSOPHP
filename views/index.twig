@@ -23,7 +23,7 @@
         <img id="profile-picture" src="https://ui-avatars.com/api/?name=John+Doe&size=255" alt="">
       </div>
       <div class="col">
-        <h1><?php echo $name; ?></h1>
+        <h1>{{name}}</h1>
         <h2>PHP Developer</h2>
         <ul>
           <li>Mail: hector@mail.com</li>
@@ -47,31 +47,22 @@
         <div>
           <h3 class="border-bottom-gray" >Work Experience</h3>
           <ul>
-            <?php
-              $totalMonths=0;
-              for($idx = 0;$idx < count($jobs);$idx++){
-                // $totalMonths = $totalMonths + $jobs[$idx]['months'];
-                $totalMonths += $jobs[$idx]->months;
+            {% for job in jobs %}
+              <li class="work-position">
+                <h5> {{ job.title|e }} </h5>
+                <p> {{ job.description}} </p>
                 
-                if($totalMonths > $limitMonths){
-                  break;
-                }
-                
-                printElement($jobs[$idx]);
+              </li>
+            {% endfor %}
 
-              } 
-            ?>
           </ul>
         </div>
         <div>
             <h3 class="border-bottom-gray">Projects</h3>
               <ul>
-                <?php
-                 
-                  for($idx = 0;$idx < count($projects);$idx++){
-                    printElement($projects[$idx]);
-                  } 
-                ?>
+                {% for project in projects %}
+                  <li>{{ project.title|e }}</li>
+                {% endfor %}
               </ul>
 
             <div class="project">

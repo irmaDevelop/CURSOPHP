@@ -54,6 +54,25 @@ $map->get('addJobs', '/jobs/add',[
     'action'     => 'getJobAddAction'
 ]);
 
+//se crea un post, para que reciba la informacion que se esta ingresando en el formulario
+$map->post('saveJobs', '/jobs/add',[
+    'controller' => 'App\Controllers\JobsController',
+    'action'     => 'getJobAddAction'
+]);
+
+
+$map->get('addProjects', '/projects/add',[
+    'controller' => 'App\Controllers\ProjectsController',
+    'action'     => 'getProjectAddAction'
+]);
+
+//se crea un post, para que reciba la informacion que se esta ingresando en el formulario
+$map->post('saveProjects', '/projects/add',[
+    'controller' => 'App\Controllers\ProjectsController',
+    'action'     => 'getProjectAddAction'
+]);
+
+
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request); //hacemos la prueba final
 
@@ -89,9 +108,10 @@ if(!$route){
 
     $controller  = new $controllerName;
     //ahora a la clase controller le decimos ejecuta un metodo de esa clase
-    $controller->$actionName(); // ejecuta un metodo baso en la cadena
+    $response = $controller->$actionName($request); // ejecuta un metodo baso en la cadena
     //require $route->handler;
     //var_dump($route->handler);
+    echo $response ->getBody();
 }
     
 
