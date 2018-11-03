@@ -2,7 +2,7 @@
 namespace App\Controllers;
 use App\Models\Project;
 
-class ProjectsController{
+class ProjectsController extends BaseController{
     public function getProjectAddAction($request){
 
         //var_dump ($request->getMethod()); //DEVUELVE GET o POST 
@@ -12,15 +12,16 @@ class ProjectsController{
 
         if ($request->getMethod() == 'POST'){
             $postData=$request->getParsedBody();
-            $job = new Project();
-            $job->title =  $postData['title'];
-            $job->description = $postData['description'];
-            $job->save();
+            $project = new Project();
+            $project->title =  $postData['title'];
+            $project->description = $postData['description'];
+            $project->save();
         
         }
 
-
-        include '../views/addProject.php';
+        //include '../views/addProject.php';
+         return $this->renderHTML('addProject.twig');
+        
     }
 }
 
