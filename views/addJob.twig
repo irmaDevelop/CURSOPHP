@@ -1,17 +1,26 @@
 {% extends "layout.twig" %}
 
 {% block content %}
+<<<<<<< HEAD
     <h2>Add Job</h2>
     <div class="alert alert-primary" role="alert">
         {{ responseMessage }}
     </div>
 
         <form action="/jobs/add" method="post" enctype="multipart/form-data">
+=======
+     <h2>Add Job</h2>
+        <form action="/jobs/add" method="post">
+>>>>>>> 43512edfaef6cead4293fc8a1e6958537450aeac
             <label for="">Title</label>
             <input type="text" name="title"><br>
             <label for="">Description</label>
             <input type="text" name="description"><br>
+<<<<<<< HEAD
             <input type="file" name="logo"><br>
+=======
+            
+>>>>>>> 43512edfaef6cead4293fc8a1e6958537450aeac
             <button type="submit">Save</button>
         </form>
 {% endblock %}

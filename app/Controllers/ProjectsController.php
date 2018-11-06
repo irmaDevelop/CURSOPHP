@@ -14,6 +14,7 @@ class ProjectsController extends BaseController{
 
         if ($request->getMethod() == 'POST'){
             $postData=$request->getParsedBody();
+<<<<<<< HEAD
             $projectValidator = v::key('title', v::stringType()->notEmpty())
                     ->key('description', v::stringType()->notEmpty());
 
@@ -30,13 +31,24 @@ class ProjectsController extends BaseController{
                 $responseMessage=$e->getMessage();
             }
 
+=======
+            $project = new Project();
+            $project->title =  $postData['title'];
+            $project->description = $postData['description'];
+            $project->save();
+>>>>>>> 43512edfaef6cead4293fc8a1e6958537450aeac
         
         }
 
         //include '../views/addProject.php';
+<<<<<<< HEAD
          return $this->renderHTML('addProject.twig',[
             'responseMessage' => $responseMessage
         ]);
+=======
+         return $this->renderHTML('addProject.twig');
+        
+>>>>>>> 43512edfaef6cead4293fc8a1e6958537450aeac
     }
 }
 

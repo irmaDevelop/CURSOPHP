@@ -12,7 +12,7 @@ class UsersController extends BaseController{
 
     public function postSaveUser($request){
         
-        $responseMessage = null;
+        $responseMessage  = null;
 
         if ($request->getMethod() == 'POST'){
             $postData=$request->getParsedBody();
