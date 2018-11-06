@@ -6,12 +6,14 @@ require_once 'Printable.php';
 class BaseElement implements Printable{
     protected $title;
     public $description;
+    public $ruta;
     public $visible=true;
     public $months;
 
-    public function __construct($title, $description){
+    public function __construct($title, $description,$ruta){
         $this->setTitle($title);
         $this->description = $description;
+        $this->logo = $ruta;
     }
 
 

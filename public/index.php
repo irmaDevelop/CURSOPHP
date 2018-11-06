@@ -72,6 +72,16 @@ $map->post('saveProjects', '/projects/add',[
     'action'     => 'getProjectAddAction'
 ]);
 
+$map->get('addUsers', '/users/add',[
+    'controller' => 'App\Controllers\UsersController',
+    'action'     => 'getAddUser'
+]);
+
+//se crea un post, para que reciba la informacion que se esta ingresando en el formulario
+$map->post('saveUsers', '/users/save',[
+    'controller' => 'App\Controllers\UsersController',
+    'action'     => 'postSaveUser'
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request); //hacemos la prueba final
