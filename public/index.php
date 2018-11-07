@@ -8,6 +8,7 @@ error_reporting(E_ALL);//Constante indica ... TODOS LOS ERRORES
 require_once '../vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
+
 //use App\Models\Job;
 //use App\Models\Project;
 
@@ -88,6 +89,17 @@ $map->get('loginForm', '/login',[
     'action'     => 'getLogin'
 ]);
 
+$map->post('auth', '/auth',[
+    'controller' => 'App\Controllers\AuthController',
+    'action'     => 'postLogin'
+]);
+
+$map->get('admin', '/admin',[
+    'controller' => 'App\Controllers\AdminController',
+    'action'     => 'getIndex'
+]);
+
+
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request); //hacemos la prueba final
 
@@ -126,6 +138,12 @@ if(!$route){
     $response = $controller->$actionName($request); // ejecuta un metodo baso en la cadena
     //require $route->handler;
     //var_dump($route->handler);
+    foreach($response->getHeaders() as $name => $values){
+        foreach($values as $value){
+            header(sprintf('%s:  %s', $name, $value), false);
+        }
+    }
+    http_response_code($response->getStatusCode());// establece cual es el codigo de respuesta 200 es el mas comun not found 404
     echo $response ->getBody();
 }
     

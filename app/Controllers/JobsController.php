@@ -13,7 +13,6 @@ class JobsController extends BaseController{
             $postData=$request->getParsedBody();
             $jobValidator = v::key('title', v::stringType()->notEmpty())
                     ->key('description', v::stringType()->notEmpty());
-<<<<<<< HEAD
                     //->key('logo', v::stringType()->notEmpty());
  
             try{
@@ -48,29 +47,6 @@ class JobsController extends BaseController{
         return $this->renderHTML('addJob.twig',[
             'responseMessage' => $responseMessage
         ]);
-=======
-
-            try{
-                //$jobValidator->validate($postData); //solo devuelve true o false.
-                $jobValidator->assert($postData); //valida similar a validate pero devuelve datos
-
-                $job = new Job();
-                $job->title =  $postData['title'];
-                $job->description = $postData['description'];
-                $job->save();
-                
-            }catch(\Exception $e){
-                var_dump($e->getMessage());
-            }
-
-
-
-
-        }
-
-        //include '../views/addJob.php';
-        return $this->renderHTML('addJob.twig');
->>>>>>> 43512edfaef6cead4293fc8a1e6958537450aeac
     }
 }
 

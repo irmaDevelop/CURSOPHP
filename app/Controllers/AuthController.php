@@ -2,46 +2,32 @@
 namespace App\Controllers;
 use App\Models\User;
 use Respect\Validation\Validator as v;
+use Zend\Diactoros\Response\RedirectResponse;
 
-class UsersController extends BaseController{
+class AuthController extends BaseController{
 
 
     public function getLogin(){
         return $this->renderHTML('login.twig');
     }
 
-    public function postSaveUser($request){
-        
-        $responseMessage  = null;
+    public function postLogin($request){
+        $responseMessage=null;
 
-        if ($request->getMethod() == 'POST'){
-            $postData=$request->getParsedBody();
-            $userValidator = v::key('email', v::stringType()->notEmpty())
-                    ->key('password', v::stringType()->notEmpty());
-                    //->key('logo', v::stringType()->notEmpty());
- 
-            try{
-                //$jobValidator->validate($postData); //solo devuelve true o false.
-                $userValidator->assert($postData); //valida similar a validate pero devuelve datos
-                //$postData=$request->getParsedBody();
-
-              
-                $user = new User();
-                $user->email =  $postData['email'];
-                $user->password = password_hash($postData['password'], PASSWORD_DEFAULT);
-                $user->save();
-
-                $responseMessage = "saved";
-            }catch(\Exception $e){
-                $responseMessage=$e->getMessage();
+        $postData=$request->getParsedBody();
+        $user = User::where('email', $postData['email'])->first();
+        if ($user){
+            if(\password_verify($postData['password'], $user->password)){
+                return new RedirectResponse('/admin');
+            }else{
+                $responseMessage='Bad credentials';
             }
-            var_dump($postData); 
+        }else{
+            $responseMessage='Bad credentials';
         }
 
-        //include '../views/addJob.php';
-        //mandamos nuestro mensaje de error dentro de arreglo; 
-        return $this->renderHTML('addUser.twig',[
-            'responseMessage' => $responseMessage
+        return $this->renderHTML('login.twig',[
+            'responseMessage'=>$responseMessage
         ]);
     }
 }
