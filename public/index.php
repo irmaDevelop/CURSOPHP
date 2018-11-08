@@ -6,8 +6,12 @@ error_reporting(E_ALL);//Constante indica ... TODOS LOS ERRORES
 
 //add common code 
 require_once '../vendor/autoload.php';
+
+session_start();//hace que exista una sesion que no es necesariamente estar logeados.
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
+use Zend\Diactoros\Response\RedirectResponse;
 
 //use App\Models\Job;
 //use App\Models\Project;
@@ -52,7 +56,8 @@ $map->get('index', '/',[
 ]);
 $map->get('addJobs', '/jobs/add',[
     'controller' => 'App\Controllers\JobsController',
-    'action'     => 'getJobAddAction'
+    'action'     => 'getJobAddAction',
+    'auth'       => true
 ]);
 
 //se crea un post, para que reciba la informacion que se esta ingresando en el formulario
@@ -64,7 +69,8 @@ $map->post('saveJobs', '/jobs/add',[
 
 $map->get('addProjects', '/projects/add',[
     'controller' => 'App\Controllers\ProjectsController',
-    'action'     => 'getProjectAddAction'
+    'action'     => 'getProjectAddAction',
+    'auth'       => true
 ]);
 
 //se crea un post, para que reciba la informacion que se esta ingresando en el formulario
@@ -75,19 +81,27 @@ $map->post('saveProjects', '/projects/add',[
 
 $map->get('addUsers', '/users/add',[
     'controller' => 'App\Controllers\UsersController',
-    'action'     => 'getAddUser'
+    'action'     => 'getAddUser',
+    'auth'       => true
 ]);
 
 //se crea un post, para que reciba la informacion que se esta ingresando en el formulario
 $map->post('saveUsers', '/users/save',[
     'controller' => 'App\Controllers\UsersController',
-    'action'     => 'postSaveUser'
+    'action'     => 'postSaveUser',
+    'auth'       => true
 ]);
 
 $map->get('loginForm', '/login',[
     'controller' => 'App\Controllers\AuthController',
     'action'     => 'getLogin'
 ]);
+
+$map->get('logout', '/logout',[
+    'controller' => 'App\Controllers\AuthController',
+    'action'     => 'getLogout'
+]);
+
 
 $map->post('auth', '/auth',[
     'controller' => 'App\Controllers\AuthController',
@@ -96,7 +110,8 @@ $map->post('auth', '/auth',[
 
 $map->get('admin', '/admin',[
     'controller' => 'App\Controllers\AdminController',
-    'action'     => 'getIndex'
+    'action'     => 'getIndex',
+    'auth'       => true
 ]);
 
 
@@ -130,9 +145,19 @@ if(!$route){
     $handlerData = $route->handler;
     $controllerName = $handlerData['controller'];
     $actionName = $handlerData['action'];
+
+
+    $needsAuth=$handlerData['auth'] ?? false; //si el valor de auth no esta definido ponle false
+    $sessionUserId = $_SESSION['userId'] ?? null;
+
+    if($needsAuth && !$sessionUserId){
+        $controllerName = 'App\Controllers\AuthController';
+		$actionName = 'getLogout' ;
+    }
+
+
     //queremos que controller sea una nueva instancia de IndexController
     //php puede interpretar una cadena como si fuera el nombre de una clase
-
     $controller  = new $controllerName;
     //ahora a la clase controller le decimos ejecuta un metodo de esa clase
     $response = $controller->$actionName($request); // ejecuta un metodo baso en la cadena
@@ -147,9 +172,6 @@ if(!$route){
     echo $response ->getBody();
 }
     
-
-
-
 
 // $route = $_GET['route'] ?? '/';
 
