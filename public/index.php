@@ -9,6 +9,12 @@ require_once '../vendor/autoload.php';
 
 session_start();//hace que exista una sesion que no es necesariamente estar logeados.
 
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/..');//__DIR__ means directorio actual del archivo
+///.. means que lo cambiamos por el directorio superior.
+$dotenv->load();
+
+
+
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Aura\Router\RouterContainer;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -20,10 +26,10 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
     'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'curso_php',
-    'username'  => 'root',
-    'password'  => 'tarapoto',
+    'host'      => getenv('DB_HOST'),
+    'database'  => getenv('DB_NAME'),
+    'username'  => getenv('DB_USER'),
+    'password'  => getenv('DB_PASS'),
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
