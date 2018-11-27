@@ -146,7 +146,7 @@ function printElement($element){
 
 
 if(!$route){
-    echo 'No route';
+    echo 'No route sorry';
 }else{
     $handlerData = $route->handler;
     $controllerName = $handlerData['controller'];
